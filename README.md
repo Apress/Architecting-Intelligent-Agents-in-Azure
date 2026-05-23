@@ -1,57 +1,60 @@
 # Architecting Intelligent Agents in Azure
 
-This repository accompanies [*Architecting Intelligent Agents in Azure: Building Agentic Systems with Python and the Microsoft Agent Framework*](https://link.springer.com/book/9798868824326) by Hari Narayn (Apress, 2026).
+Source code for [*Architecting Intelligent Agents in Azure: Building Agentic Systems with Python and the Microsoft Agent Framework*](https://www.link.springer.com/book/10.1007/979-8-8688-2433-3) by Hari Narayn (Apress, 2026).
 
 [comment]: #cover
 ![Cover image](9798868824326.jpg)
 
-The book follows one system, Thain, as it grows from a simple support-triage agent into a governed, observable, multi-agent service on Azure. This repository contains the chapter code, Microsoft Agent Framework 1.5.0 General Availability (GA) companion code, migration notes, and architecture notes.
+## Start Here
 
-## Repository Structure
+The book follows a single agent, **Thain**, a support triage agent, across ten chapters. Each chapter evolves the same agentic system forward, introducing new architectural capabilities while preserving prior behavior.
 
-```text
-Chapter 2/ ... Chapter 10/   Original code matching the book listings
-Code GA/                     Microsoft Agent Framework 1.5.0 GA code
-Migration Notes/             Chapter-by-chapter beta-to-GA migration notes
-Architectural Notes/         Chapter-level architecture notes and modern capability mapping
-```
+This repository focuses on production-grade agentic system architecture: reasoning, memory, retrieval, governance, observability, evaluation, and operational reliability.
 
-Chapter 1 is conceptual and does not include code. Each later chapter represents a validated system boundary, so you can start from the folder for the chapter you are reading.
+| Folder | What it contains |
+|--------|-----------------|
+| `Chapter X/` | Original code matching the printed book listings |
+| `Code GA/Chapter X/` | Runnable MAF 1.5.0 GA implementation of the same system |
+| `Migration Notes/` | Chapter-by-chapter API change reference (beta to GA) |
+| `Architectural Notes/` | Design decisions and modern MAF capability mapping |
 
-## Which Code Should I Use?
+The original `Chapter X/` listings preserve the structure and flow of the printed manuscript. See `Code GA/README.md` for setup instructions.
 
-Use the `Code GA/` folder for the current runnable implementation. The original `Chapter N/` folders are preserved to match the printed listings and learning flow in the book.
+## Chapter Map
 
-The GA code keeps the same architecture and behavior while using Microsoft Agent Framework 1.5.0 APIs. The migration notes explain the API changes chapter by chapter.
+| Chapter | Title | Key Concepts |
+|---------|-------|-------------|
+| 1 | Thain: The Beginning | Azure AI Foundry setup, agent concepts (no runnable code, Foundry walkthrough) |
+| 2 | Thain Meets the Agent Framework | MAF basics, reasoning loop, tools |
+| 3 | Thain Learns to Remember | Cosmos DB persistence, memory tiers |
+| 4 | Thain Connects the Dots | Semantic recall, Azure AI Search, RAG |
+| 5 | Thain Builds Its Toolkit | Custom tools, approval workflows |
+| 6 | Thain Earns Trust | Governance, observability, content safety |
+| 7 | Thain Learns to Collaborate | Multi-agent, blackboard orchestration |
+| 8 | Thain Goes Live | FastAPI, Docker, Azure Container Apps, IaC |
+| 9 | Thain Learns from Us | Feedback loops, LLM-as-judge evaluation |
+| 10 | Thain at Scale | Streaming, cost optimisation, reliability |
 
-## Getting Started
+## Running the Code
 
-Clone the repository:
+**GA code (Chapters 2 to 10):**
 
 ```bash
-git clone https://github.com/Apress/Architecting-Intelligent-Agents-in-Azure.git
-cd Architecting-Intelligent-Agents-in-Azure
+cd "Code GA/Chapter 4/thain"
+pip install -r requirements.txt -c constraints.txt
+pytest tests/ -v
 ```
 
-Then open the chapter folder you want to run. For example:
+**Original book listings with DevUI (Chapters 2 to 10):**
+
+The `Chapter X/` folders match the printed listings and support the MAF DevUI for interactive exploration of agent reasoning, tool calls, and traces:
 
 ```bash
-cd "Code GA/Chapter 2/thain"
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
+cd "Chapter 4/thain"
+pip install -r requirements.txt -c constraints.txt
+python main.py --devui --devui-open
 ```
-
-Some chapters require Azure resources such as Azure OpenAI, Cosmos DB, Azure AI Search, Application Insights, Azure Container Apps, or Microsoft Foundry. See the relevant chapter and its README before running the code.
-
-Sanitized `.env` and `.env.dev` templates are included where needed. Replace placeholder or blank values with your own Azure settings before running deployed examples.
-
-## Notes for Readers
-
-DevUI is used in the book as a learning aid to make agent behavior, tool calls, and traces visible during development. Treat it as a development companion, not a production interface.
-
-The `Architectural Notes/` folder adds production-oriented commentary for each chapter, including where newer Microsoft Agent Framework capabilities such as workflows, middleware, checkpointing, evaluation, hosted agents, skills, MCP, and A2A can be explored.
 
 ## Contributions
 
-See [Contributing.md](Contributing.md) for more information on how you can contribute to this repository. If you find a setup issue, code correction, or compatibility problem, please raise a GitHub issue.
+See `Contributing.md` for more information on how you can contribute to this repository.
