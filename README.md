@@ -1,6 +1,6 @@
 # Architecting Intelligent Agents in Azure
 
-Source code for [*Architecting Intelligent Agents in Azure: Building Agentic Systems with Python and the Microsoft Agent Framework*](https://www.link.springer.com/book/10.1007/979-8-8688-2433-3) by Hari Narayn (Apress, 2026).
+Source code for [*Architecting Intelligent Agents in Azure: Building Agentic Systems with Python and the Microsoft Agent Framework*](https://link.springer.com/book/9798868824326) by Hari Narayn (Apress, 2026).
 
 [comment]: #cover
 ![Cover image](9798868824326.jpg)
