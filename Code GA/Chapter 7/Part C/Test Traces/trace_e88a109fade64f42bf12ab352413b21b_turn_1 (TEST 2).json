@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+    "trace_id": "e88a109fade64f42bf12ab352413b21b",
+    "turn_id": 1,
+    "started_at": "2026-01-24T08:03:07.981915+00:00",
+    "elapsed_ms": 23762
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-24T08:03:07.981915+00:00",
+      "type": "request.received",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "message_len": 100,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-24T08:03:08.001896+00:00",
+      "type": "policy.check",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-24T08:03:08.001896+00:00",
+      "type": "tool.call",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "args": {
+          "summary": "<redacted>",
+          "severity": "high",
+          "customer_id": "thain-demo-v2",
+          "evidence_summary": "No supporting evidence retrieved.",
+          "evidence_items": [],
+          "summary_len": 132
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-24T08:03:13.308751+00:00",
+      "type": "approval.decision",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "approval_id": "APR-1769241793308",
+        "tool_name": "create_ticket",
+        "approved": false,
+        "timestamp": "2026-01-24T08:03:13.308751+00:00",
+        "reason": "denied"
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-24T08:03:13.308751+00:00",
+      "type": "tool.result",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "ok",
+        "duration_ms": 5306,
+        "result": {
+          "status": "denied",
+          "approved": false,
+          "reason": "approval_not_provided"
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-24T08:03:31.744296+00:00",
+      "type": "response.ready",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 100,
+        "elapsed_ms": 23762
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-24T08:03:31.746241+00:00",
+      "type": "trace.emitted",
+      "run_id": "923f68862e864f299e8fb9d8b33a1b3d",
+      "trace_id": "e88a109fade64f42bf12ab352413b21b",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_923f68862e864f299e8fb9d8b33a1b3d\\trace_e88a109fade64f42bf12ab352413b21b_turn_1.json"
+      }
+    }
+  ]
+}

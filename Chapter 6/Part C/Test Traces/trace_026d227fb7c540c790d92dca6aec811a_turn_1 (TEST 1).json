@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+    "trace_id": "026d227fb7c540c790d92dca6aec811a",
+    "turn_id": 1,
+    "started_at": "2026-01-15T02:40:21.644230+00:00",
+    "elapsed_ms": 38494
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-15T02:40:21.645231+00:00",
+      "type": "request.received",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "message_len": 110,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-15T02:40:37.216930+00:00",
+      "type": "policy.check",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-15T02:40:37.216930+00:00",
+      "type": "tool.call",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 66
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-15T02:40:37.218913+00:00",
+      "type": "tool.result",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-15T02:40:41.230750+00:00",
+      "type": "policy.check",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "tool_kind": "retrieve",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-15T02:40:41.230750+00:00",
+      "type": "tool.call",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "args": {
+          "customer_message": "<redacted>",
+          "top_k": 3,
+          "time_window_days": 90,
+          "include_outcomes": false,
+          "customer_message_len": 66
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-15T02:40:48.342614+00:00",
+      "type": "tool.result",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "error",
+        "duration_ms": 7111,
+        "error_type": "SemanticSearchError"
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-15T02:41:00.138869+00:00",
+      "type": "response.ready",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 110,
+        "elapsed_ms": 38494
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-15T02:41:00.139828+00:00",
+      "type": "trace.emitted",
+      "run_id": "bc3a293ef1e04169b39ac6d7eb1a8692",
+      "trace_id": "026d227fb7c540c790d92dca6aec811a",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_bc3a293ef1e04169b39ac6d7eb1a8692\\trace_026d227fb7c540c790d92dca6aec811a_turn_1.json"
+      }
+    }
+  ]
+}

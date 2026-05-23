@@ -1,0 +1,103 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workflowName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "acsEndpoint": {
+      "type": "string"
+    },
+    "acsSenderAddress": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2019-05-01",
+      "name": "[parameters('workflowName')]",
+      "location": "[parameters('location')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "state": "Enabled",
+        "parameters": {
+          "acsEndpoint": { "value": "[parameters('acsEndpoint')]" },
+          "acsSenderAddress": { "value": "[parameters('acsSenderAddress')]" }
+        },
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "acsEndpoint": { "type": "string" },
+            "acsSenderAddress": { "type": "string" }
+          },
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "approval_id": { "type": "string" },
+                    "tool_name": { "type": "string" },
+                    "tool_args_hash": { "type": "string" },
+                    "approvals_group": { "type": "string" },
+                    "trace_id": { "type": "string" },
+                    "callback_url": { "type": "string" },
+                    "callback_token": { "type": "string" }
+                  },
+                  "required": [
+                    "approval_id",
+                    "tool_name",
+                    "tool_args_hash",
+                    "approvals_group",
+                    "callback_url",
+                    "callback_token"
+                  ]
+                }
+              }
+            }
+          },
+          "actions": {
+            "Send_approval_email": {
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "@{concat(parameters('acsEndpoint'), '/emails:send?api-version=2023-03-31')}",
+                "authentication": {
+                  "type": "ManagedServiceIdentity",
+                  "audience": "https://communication.azure.com/"
+                },
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "senderAddress": "@{parameters('acsSenderAddress')}",
+                  "recipients": {
+                    "to": [
+                      {
+                        "address": "@{triggerBody()?['approvals_group']}"
+                      }
+                    ]
+                  },
+                  "content": {
+                    "subject": "@{concat('Thain approval: ', triggerBody()?['tool_name'])}",
+                    "plainText": "@{concat('Approval request for ', triggerBody()?['tool_name'], '. Approval ID: ', triggerBody()?['approval_id'], '. Approve: ', triggerBody()?['callback_url'], '?approval_id=', triggerBody()?['approval_id'], '&decision=approved&token=', triggerBody()?['callback_token'], ' Deny: ', triggerBody()?['callback_url'], '?approval_id=', triggerBody()?['approval_id'], '&decision=denied&token=', triggerBody()?['callback_token'])}",
+                    "html": "@{concat('Approval request for ', triggerBody()?['tool_name'], '.<br/>Approval ID: ', triggerBody()?['approval_id'], '<br/><br/><a href=\"', triggerBody()?['callback_url'], '?approval_id=', triggerBody()?['approval_id'], '&decision=approved&token=', triggerBody()?['callback_token'], '\">Approve</a> | <a href=\"', triggerBody()?['callback_url'], '?approval_id=', triggerBody()?['approval_id'], '&decision=denied&token=', triggerBody()?['callback_token'], '\">Deny</a>')}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

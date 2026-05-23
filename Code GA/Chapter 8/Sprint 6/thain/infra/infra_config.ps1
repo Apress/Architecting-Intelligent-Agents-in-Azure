@@ -1,0 +1,37 @@
+﻿$ResourceGroupName = "rg-aiaa-book"
+$Location = "eastus2"
+$AcrName = "acrthainv0701"
+$LogAnalyticsName = "law-thain-01"
+$AppInsightsName = "appi-thain-01"
+$ContainerAppsEnvName = "cae-thain-01"
+$ContainerAppName = "thain-01"
+$ContainerAppStageName = "thain-01-stage"
+$ImageRepository = "thain-01"
+$ContainerAppPort = 8000
+$KeyVaultName = "kv-thain-01"
+$StorageAccountName = "stthainv0701"
+$ContentSafetyName = "cs-thain-01"
+$ContentSafetyKeySecretName = "thain-content-safety-key"
+$SafetyTemplateHumanEscalateSecretName = "thain-safety-template-human-escalate"
+$SafetyTemplateRefuseSecretName = "thain-safety-template-refuse"
+
+
+# Optional resource IDs (set if you want scripts to avoid lookups)
+$FoundryProjectResourceId = ""
+$FoundryAccountResourceId = ""
+$CosmosAccountName = "cosmos-thain"
+$SearchServiceName = "ai-search-thain-1"
+$SearchDocsIndexName = "thain-kb-v1"
+$ApprovalsContainerName = "thain-approvals"
+$ApprovalsLogicAppName = "logicapp-thain-approvals"
+$ApprovalsLogicAppUrlSecretName = "thain-approvals-logicapp-url"
+$ApprovalsCallbackSecretName = "thain-approvals-callback-secret"
+$ApprovalsGroupName = "APPROVALS_GROUP"
+$AcsCommunicationServiceName = "acs-thain-01"
+$AcsEmailServiceName = "email-thain-01"
+$AcsEmailDomainName = "AzureManagedDomain"
+$AcsEmailSenderUsername = "approvals"
+$AcsDataLocation = "unitedstates"
+
+# Optional: user object id to allow seeding Key Vault secrets
+$KeyVaultSeederObjectId = ""

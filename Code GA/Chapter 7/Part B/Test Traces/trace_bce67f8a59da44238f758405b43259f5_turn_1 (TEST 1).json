@@ -1,0 +1,284 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "7529529dd6594622b8c3f1040ac43710",
+    "trace_id": "bce67f8a59da44238f758405b43259f5",
+    "turn_id": 1,
+    "started_at": "2026-01-21T01:44:50.297279+00:00",
+    "elapsed_ms": 29472
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-21T01:44:50.297279+00:00",
+      "type": "request.received",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "message_len": 163,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-21T01:44:50.314340+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "tool_kind": "retrieve",
+        "decision": "deny",
+        "matched_rule_ids": [
+          "POL-DENY-002"
+        ],
+        "enforced_rule_id": "POL-DENY-002",
+        "reason": "policy_denied"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-21T01:44:50.314340+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "blocked",
+        "duration_ms": 0,
+        "error_type": "PolicyDenied"
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-21T01:44:50.314340+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-21T01:44:50.314340+00:00",
+      "type": "tool.call",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "args": {
+          "query": "During yesterday’s shift, the equipment shut down twice and caused a brief evacuation. What’s the standard procedure and have there been similar incidents recently",
+          "top_k": 3
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-21T01:44:50.314340+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": [
+          {
+            "title": "Equipment shutdown response checklist",
+            "snippet": "Steps to follow after an unexpected shutdown and evacuation.",
+            "url": "https://kb.thain.local/shutdown-checklist",
+            "source": "kb",
+            "tags": [
+              "shutdown",
+              "safety",
+              "evacuation"
+            ]
+          },
+          {
+            "title": "Recurring incident escalation playbook",
+            "snippet": "When to open tickets and notify safety teams for repeat incidents.",
+            "url": "https://kb.thain.local/escalation-playbook",
+            "source": "kb",
+            "tags": [
+              "escalation",
+              "incident"
+            ]
+          },
+          {
+            "title": "Sensor calibration troubleshooting",
+            "snippet": "Diagnosing sensor faults that lead to operational disruptions.",
+            "url": "https://kb.thain.local/sensor-calibration",
+            "source": "kb",
+            "tags": [
+              "sensor",
+              "hardware"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-21T01:45:09.560995+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-21T01:45:09.560995+00:00",
+      "type": "tool.call",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 163
+        }
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-21T01:45:09.561992+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "ts": "2026-01-21T01:45:09.561992+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 11,
+      "ts": "2026-01-21T01:45:09.561992+00:00",
+      "type": "tool.call",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "args": {
+          "query": "Equipment shutdown twice and evacuation protocol",
+          "top_k": 3
+        }
+      }
+    },
+    {
+      "seq": 12,
+      "ts": "2026-01-21T01:45:09.561992+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": [
+          {
+            "title": "Equipment shutdown response checklist",
+            "snippet": "Steps to follow after an unexpected shutdown and evacuation.",
+            "url": "https://kb.thain.local/shutdown-checklist",
+            "source": "kb",
+            "tags": [
+              "shutdown",
+              "safety",
+              "evacuation"
+            ]
+          },
+          {
+            "title": "Recurring incident escalation playbook",
+            "snippet": "When to open tickets and notify safety teams for repeat incidents.",
+            "url": "https://kb.thain.local/escalation-playbook",
+            "source": "kb",
+            "tags": [
+              "escalation",
+              "incident"
+            ]
+          },
+          {
+            "title": "Sensor calibration troubleshooting",
+            "snippet": "Diagnosing sensor faults that lead to operational disruptions.",
+            "url": "https://kb.thain.local/sensor-calibration",
+            "source": "kb",
+            "tags": [
+              "sensor",
+              "hardware"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 13,
+      "ts": "2026-01-21T01:45:19.771905+00:00",
+      "type": "response.ready",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 163,
+        "elapsed_ms": 29472
+      }
+    },
+    {
+      "seq": 14,
+      "ts": "2026-01-21T01:45:19.772952+00:00",
+      "type": "trace.emitted",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "bce67f8a59da44238f758405b43259f5",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_7529529dd6594622b8c3f1040ac43710\\trace_bce67f8a59da44238f758405b43259f5_turn_1.json"
+      }
+    }
+  ]
+}

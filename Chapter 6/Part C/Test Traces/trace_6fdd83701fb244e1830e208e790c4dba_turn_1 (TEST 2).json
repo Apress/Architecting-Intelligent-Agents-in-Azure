@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+    "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+    "turn_id": 1,
+    "started_at": "2026-01-15T03:38:40.217659+00:00",
+    "elapsed_ms": 27807
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-15T03:38:40.217659+00:00",
+      "type": "request.received",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "message_len": 56,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-15T03:38:54.806124+00:00",
+      "type": "policy.check",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "tool_kind": "retrieve",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-15T03:38:54.806124+00:00",
+      "type": "tool.call",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "args": {
+          "customer_message": "<redacted>",
+          "top_k": 3,
+          "time_window_days": 90,
+          "include_outcomes": false,
+          "customer_message_len": 33
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-15T03:38:55.111550+00:00",
+      "type": "policy.check",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "deny",
+        "matched_rule_ids": [
+          "POL-DENY-001"
+        ],
+        "enforced_rule_id": "POL-DENY-001",
+        "reason": "policy_denied"
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-15T03:38:55.111550+00:00",
+      "type": "tool.result",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "blocked",
+        "duration_ms": 0,
+        "error_type": "PolicyDenied"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-15T03:38:58.636290+00:00",
+      "type": "tool.result",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "ok",
+        "duration_ms": 3830,
+        "result": [
+          {
+            "id": "40de0ea9-bf02-4cc9-b58c-3b134eba20b3",
+            "customerId": "thain-demo-v2",
+            "issueCategory": "General Inquiry",
+            "summary": "My refund was delayed by 14 days. Please create a ticket",
+            "rawMessage": "My refund was delayed by 14 days. Please create a ticket",
+            "createdAt": "2026-01-15T03:13:03.641Z"
+          },
+          {
+            "id": "f8b9cffc-5c66-431c-bff7-0ccee4ef124e",
+            "customerId": "thain-demo-v2",
+            "issueCategory": "General Inquiry",
+            "summary": "My refund was delayed by 14 days. Please create a ticket",
+            "rawMessage": "My refund was delayed by 14 days. Please create a ticket",
+            "createdAt": "2026-01-15T03:24:54.353Z"
+          },
+          {
+            "id": "d2fdcc26-d878-4612-be6e-76d8f6b1319e",
+            "customerId": "thain-demo-v2",
+            "issueCategory": "General Inquiry",
+            "summary": "My refund was delayed by 14 days. Please create a ticket",
+            "rawMessage": "My refund was delayed by 14 days. Please create a ticket",
+            "createdAt": "2026-01-15T03:21:52.707Z"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-15T03:39:08.025201+00:00",
+      "type": "response.ready",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 56,
+        "elapsed_ms": 27807
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-15T03:39:08.026217+00:00",
+      "type": "trace.emitted",
+      "run_id": "39507f5a1e774b2fb65f888b7b12c5c5",
+      "trace_id": "6fdd83701fb244e1830e208e790c4dba",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_39507f5a1e774b2fb65f888b7b12c5c5\\trace_6fdd83701fb244e1830e208e790c4dba_turn_1.json"
+      }
+    }
+  ]
+}

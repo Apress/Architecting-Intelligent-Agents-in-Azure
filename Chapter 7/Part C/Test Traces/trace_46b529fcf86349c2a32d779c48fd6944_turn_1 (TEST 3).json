@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+    "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+    "turn_id": 1,
+    "started_at": "2026-01-24T08:41:27.974244+00:00",
+    "elapsed_ms": 23176
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-24T08:41:27.974244+00:00",
+      "type": "request.received",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "message_len": 69,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-24T08:41:28.007302+00:00",
+      "type": "policy.check",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-24T08:41:28.007302+00:00",
+      "type": "tool.call",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "args": {
+          "summary": "<redacted>",
+          "severity": "high",
+          "customer_id": "thain-demo-v2",
+          "evidence_summary": "No supporting evidence retrieved.",
+          "evidence_items": [],
+          "summary_len": 101
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-24T08:41:30.088579+00:00",
+      "type": "approval.decision",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "approval_id": "APR-1769244090087",
+        "tool_name": "create_ticket",
+        "approved": true,
+        "timestamp": "2026-01-24T08:41:30.087573+00:00",
+        "reason": "approved"
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-24T08:41:30.088579+00:00",
+      "type": "tool.result",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "ok",
+        "duration_ms": 2081,
+        "result": {
+          "ticket_id": "TCK-FD8C4F86",
+          "status": "created",
+          "approved": true,
+          "url": "https://tickets.thain.local/TCK-FD8C4F86",
+          "summary": "General Inquiry issue reported: Open a ticket and notify the on‑call team. This is a critical outage.",
+          "severity": "high",
+          "evidence_summary": "No supporting evidence retrieved.",
+          "evidence_items": []
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-24T08:41:30.088579+00:00",
+      "type": "policy.check",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "notify_team",
+        "tool_kind": "notify",
+        "decision": "warn",
+        "matched_rule_ids": [
+          "POL-WARN-001"
+        ],
+        "enforced_rule_id": "POL-WARN-001",
+        "reason": "policy_warn"
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-24T08:41:30.088579+00:00",
+      "type": "tool.call",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "notify_team",
+        "args": {
+          "channel": "support-triage",
+          "message": "Triage alert: General Inquiry (high). No supporting evidence retrieved.",
+          "priority": "high",
+          "related_ticket_id": "TCK-FD8C4F86"
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-24T08:41:30.711205+00:00",
+      "type": "approval.decision",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "approval_id": "APR-1769244090711",
+        "tool_name": "notify_team",
+        "approved": true,
+        "timestamp": "2026-01-24T08:41:30.711205+00:00",
+        "reason": "approved"
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-24T08:41:30.711205+00:00",
+      "type": "tool.result",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "notify_team",
+        "status": "ok",
+        "duration_ms": 622,
+        "result": {
+          "message_id": "MSG-92204A00",
+          "status": "sent",
+          "approved": true,
+          "channel": "support-triage",
+          "priority": "high",
+          "related_ticket_id": "TCK-FD8C4F86"
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "ts": "2026-01-24T08:41:51.150602+00:00",
+      "type": "response.ready",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 69,
+        "elapsed_ms": 23176
+      }
+    },
+    {
+      "seq": 11,
+      "ts": "2026-01-24T08:41:51.152673+00:00",
+      "type": "trace.emitted",
+      "run_id": "6c5fd39bd42e4ff9b7024c3574e13a7f",
+      "trace_id": "46b529fcf86349c2a32d779c48fd6944",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_6c5fd39bd42e4ff9b7024c3574e13a7f\\trace_46b529fcf86349c2a32d779c48fd6944_turn_1.json"
+      }
+    }
+  ]
+}

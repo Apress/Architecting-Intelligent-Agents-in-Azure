@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "dc58fb280a78471aa96d8dab234cd486",
+    "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+    "turn_id": 1,
+    "started_at": "2026-01-21T03:00:28.709226+00:00",
+    "elapsed_ms": 25912
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-21T03:00:28.710243+00:00",
+      "type": "request.received",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "message_len": 164,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-21T03:00:46.630715+00:00",
+      "type": "policy.check",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-21T03:00:46.630715+00:00",
+      "type": "tool.call",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 164
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-21T03:00:46.635704+00:00",
+      "type": "tool.result",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 4,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-21T03:00:46.635704+00:00",
+      "type": "policy.check",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-21T03:00:46.635704+00:00",
+      "type": "tool.call",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "args": {
+          "query": "standard procedure after equipment shutdown and evacuation",
+          "top_k": 3
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-21T03:00:46.635704+00:00",
+      "type": "tool.result",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": [
+          {
+            "title": "Equipment shutdown response checklist",
+            "snippet": "Steps to follow after an unexpected shutdown and evacuation.",
+            "url": "https://kb.thain.local/shutdown-checklist",
+            "source": "kb",
+            "tags": [
+              "shutdown",
+              "safety",
+              "evacuation"
+            ]
+          },
+          {
+            "title": "Recurring incident escalation playbook",
+            "snippet": "When to open tickets and notify safety teams for repeat incidents.",
+            "url": "https://kb.thain.local/escalation-playbook",
+            "source": "kb",
+            "tags": [
+              "escalation",
+              "incident"
+            ]
+          },
+          {
+            "title": "Sensor calibration troubleshooting",
+            "snippet": "Diagnosing sensor faults that lead to operational disruptions.",
+            "url": "https://kb.thain.local/sensor-calibration",
+            "source": "kb",
+            "tags": [
+              "sensor",
+              "hardware"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-21T03:00:54.622141+00:00",
+      "type": "response.ready",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 164,
+        "elapsed_ms": 25912
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-21T03:00:54.622141+00:00",
+      "type": "trace.emitted",
+      "run_id": "dc58fb280a78471aa96d8dab234cd486",
+      "trace_id": "8f1eb8287a274ed896d58c026eedb753",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_dc58fb280a78471aa96d8dab234cd486\\trace_8f1eb8287a274ed896d58c026eedb753_turn_1.json"
+      }
+    }
+  ]
+}

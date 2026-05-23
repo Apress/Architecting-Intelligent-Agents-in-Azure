@@ -1,0 +1,41 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Thain Feedback Metrics\n Feedback signals captured from v1.1."
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Feedback Volume + Override Rate (Daily)",
+        "query": "let base = dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| where tostring(customDimensions[\"thain.feedback.submitted\"]) == \"true\"\n| extend decision = tostring(customDimensions[\"thain.feedback.decision\"])\n| summarize feedback_count=count(), rejected=countif(decision in (\"rejected\", \"overridden\")) by day=bin(timestamp, 1d)\n| extend override_rate = iif(feedback_count == 0, 0.0, todouble(rejected) / todouble(feedback_count) * 100.0);\nbase\n| project day, metric=\"feedback_count\", value=todouble(feedback_count)\n| union (base | project day, metric=\"override_rate\", value=todouble(override_rate))\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+   
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Top Feedback Reasons",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| where tostring(customDimensions[\"thain.feedback.submitted\"]) == \"true\"\n| extend reason = tostring(customDimensions[\"thain.feedback.reason\"])\n| where reason != \"\"\n| summarize count() by reason\n| top 10 by count_ desc",
+        "visualization": "table",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    }
+  ],
+  "fallbackResourceIds": [
+    "__APPINSIGHTS_RESOURCE_ID__"
+  ]
+}

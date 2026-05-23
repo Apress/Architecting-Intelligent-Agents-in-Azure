@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+    "trace_id": "46f3e55567c941c3995388569704faf7",
+    "turn_id": 1,
+    "started_at": "2026-01-24T07:50:50.595577+00:00",
+    "elapsed_ms": 21446
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-24T07:50:50.595577+00:00",
+      "type": "request.received",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "message_len": 124,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-24T07:50:50.615200+00:00",
+      "type": "policy.check",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "tool_kind": "retrieve",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-24T07:50:50.615200+00:00",
+      "type": "tool.call",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "args": {
+          "customer_message": "<redacted>",
+          "top_k": 3,
+          "category": "General Inquiry",
+          "include_outcomes": true,
+          "customer_message_len": 124
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-24T07:50:55.230324+00:00",
+      "type": "tool.result",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "ok",
+        "duration_ms": 4615,
+        "result": []
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-24T07:50:55.230324+00:00",
+      "type": "policy.check",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-24T07:50:55.230324+00:00",
+      "type": "tool.call",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "args": {
+          "query": "Wi‑Fi keeps dropping across two sites. Have we seen similar complaints recently, and do we have a troubleshooting procedure?",
+          "top_k": 3
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-24T07:50:55.230324+00:00",
+      "type": "tool.result",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": [
+          {
+            "title": "Equipment shutdown response checklist",
+            "snippet": "Steps to follow after an unexpected shutdown and evacuation.",
+            "url": "https://kb.thain.local/shutdown-checklist",
+            "source": "kb",
+            "tags": [
+              "shutdown",
+              "safety",
+              "evacuation"
+            ]
+          },
+          {
+            "title": "Recurring incident escalation playbook",
+            "snippet": "When to open tickets and notify safety teams for repeat incidents.",
+            "url": "https://kb.thain.local/escalation-playbook",
+            "source": "kb",
+            "tags": [
+              "escalation",
+              "incident"
+            ]
+          },
+          {
+            "title": "Sensor calibration troubleshooting",
+            "snippet": "Diagnosing sensor faults that lead to operational disruptions.",
+            "url": "https://kb.thain.local/sensor-calibration",
+            "source": "kb",
+            "tags": [
+              "sensor",
+              "hardware"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-24T07:51:12.042405+00:00",
+      "type": "response.ready",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 124,
+        "elapsed_ms": 21446
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-24T07:51:12.043404+00:00",
+      "type": "trace.emitted",
+      "run_id": "ce10f6d37e3748b6a9caeefcd3c2e614",
+      "trace_id": "46f3e55567c941c3995388569704faf7",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_ce10f6d37e3748b6a9caeefcd3c2e614\\trace_46f3e55567c941c3995388569704faf7_turn_1.json"
+      }
+    }
+  ]
+}

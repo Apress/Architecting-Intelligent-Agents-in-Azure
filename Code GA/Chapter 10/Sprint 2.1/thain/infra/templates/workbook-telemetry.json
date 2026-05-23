@@ -1,0 +1,66 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Thain Cost + Latency Metrics\nTelemetry captured from Sprint 2.1."
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Avg Cost per Request (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend cost = todouble(customDimensions[\"thain.cost.estimate_usd\"])\n| where isnotnull(cost)\n| summarize avg_cost=avg(cost) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Avg Latency per Request (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend latency_ms = todouble(customDimensions[\"thain.latency.total_ms\"])\n| where isnotnull(latency_ms)\n| summarize avg_latency=avg(latency_ms) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Token Usage Trend (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend total_tokens = todouble(customDimensions[\"thain.tokens.total\"])\n| where isnotnull(total_tokens)\n| summarize avg_tokens=avg(total_tokens) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "P95 Latency (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend latency_ms = todouble(customDimensions[\"thain.latency.total_ms\"])\n| where isnotnull(latency_ms)\n| summarize p95_latency=percentile(latency_ms, 95) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    }
+  ],
+  "fallbackResourceIds": [
+    "__APPINSIGHTS_RESOURCE_ID__"
+  ]
+}

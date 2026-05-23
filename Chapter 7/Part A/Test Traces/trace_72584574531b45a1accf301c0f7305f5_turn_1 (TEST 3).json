@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+    "trace_id": "72584574531b45a1accf301c0f7305f5",
+    "turn_id": 1,
+    "started_at": "2026-01-18T06:04:37.209345+00:00",
+    "elapsed_ms": 14574
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-18T06:04:37.209345+00:00",
+      "type": "request.received",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "message_len": 74,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-18T06:04:47.455100+00:00",
+      "type": "policy.check",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-18T06:04:47.455100+00:00",
+      "type": "tool.call",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 74
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-18T06:04:47.455100+00:00",
+      "type": "tool.result",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-18T06:04:51.783740+00:00",
+      "type": "response.ready",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 74,
+        "elapsed_ms": 14574
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-18T06:04:51.785724+00:00",
+      "type": "trace.emitted",
+      "run_id": "8437b536e2ac4dc4a8222d4b15710dd2",
+      "trace_id": "72584574531b45a1accf301c0f7305f5",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_8437b536e2ac4dc4a8222d4b15710dd2\\trace_72584574531b45a1accf301c0f7305f5_turn_1.json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "kb-wifi-site-instability",
+    "docType": "kb",
+    "title": "Wi-Fi instability triage across multiple sites",
+    "content": "Use this procedure when users report intermittent Wi-Fi drops at more than one site. Validate AP health, channel overlap, WAN packet loss, and DHCP lease exhaustion before escalation.",
+    "snippet": "Checklist for multi-site Wi-Fi drops: AP health, channel overlap, WAN loss, and DHCP validation.",
+    "url": "https://kb.thain.local/network/wifi-multi-site-triage",
+    "source": "kb",
+    "tags": ["wifi", "network", "triage", "multisite"]
+  },
+  {
+    "id": "kb-network-escalation-policy",
+    "docType": "kb",
+    "title": "Network incident escalation policy",
+    "content": "Escalate to network operations if packet loss stays above 2 percent for 10 minutes, if three or more branches are impacted, or if a business-critical workflow is blocked.",
+    "snippet": "Escalation criteria for network incidents and cross-site outages.",
+    "url": "https://kb.thain.local/network/escalation-policy",
+    "source": "kb",
+    "tags": ["network", "escalation", "policy"]
+  },
+  {
+    "id": "kb-vpn-auth-troubleshooting",
+    "docType": "kb",
+    "title": "VPN authentication troubleshooting guide",
+    "content": "For repeated VPN login failures, validate identity provider availability, token expiry, and conditional access policy updates. Gather failed attempt timestamps before creating a ticket.",
+    "snippet": "Troubleshooting sequence for repeated VPN authentication failures.",
+    "url": "https://kb.thain.local/security/vpn-auth-troubleshooting",
+    "source": "kb",
+    "tags": ["vpn", "identity", "security"]
+  },
+  {
+    "id": "kb-dispatch-sensor-calibration",
+    "docType": "kb",
+    "title": "Sensor calibration recovery playbook",
+    "content": "When field sensors drift or fail self-check, run calibration baseline tests, compare with prior week telemetry, and isolate hardware faults before replacement.",
+    "snippet": "Playbook for diagnosing calibration drift and sensor faults.",
+    "url": "https://kb.thain.local/operations/sensor-calibration-recovery",
+    "source": "kb",
+    "tags": ["sensor", "hardware", "operations"]
+  },
+  {
+    "id": "kb-shutdown-response-checklist",
+    "docType": "kb",
+    "title": "Equipment shutdown response checklist",
+    "content": "If an unexpected shutdown occurs, secure the area, confirm safety signals, collect controller logs, and follow restart authorization steps.",
+    "snippet": "Emergency checklist for unexpected equipment shutdown events.",
+    "url": "https://kb.thain.local/safety/shutdown-response-checklist",
+    "source": "kb",
+    "tags": ["shutdown", "safety", "incident"]
+  },
+  {
+    "id": "kb-incident-comms-template",
+    "docType": "kb",
+    "title": "Major incident communications template",
+    "content": "Template for sending Teams and email updates during active incidents. Include impact, mitigation status, next checkpoint, and owner.",
+    "snippet": "Standard communication template for high-urgency incidents.",
+    "url": "https://kb.thain.local/incident/comms-template",
+    "source": "kb",
+    "tags": ["incident", "communications", "teams"]
+  }
+]

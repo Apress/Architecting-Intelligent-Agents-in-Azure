@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "7529529dd6594622b8c3f1040ac43710",
+    "trace_id": "b64203ac3e834761a564438f62b685b4",
+    "turn_id": 2,
+    "started_at": "2026-01-21T01:56:45.120082+00:00",
+    "elapsed_ms": 21144
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-21T01:56:45.120082+00:00",
+      "type": "request.received",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "message_len": 74,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-21T01:56:45.137906+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-21T01:56:45.137906+00:00",
+      "type": "tool.call",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "args": {
+          "query": "What’s the standard procedure after an unexpected shutdown and evacuation?",
+          "top_k": 3
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-21T01:56:45.137906+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "retrieve_docs",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": [
+          {
+            "title": "Equipment shutdown response checklist",
+            "snippet": "Steps to follow after an unexpected shutdown and evacuation.",
+            "url": "https://kb.thain.local/shutdown-checklist",
+            "source": "kb",
+            "tags": [
+              "shutdown",
+              "safety",
+              "evacuation"
+            ]
+          },
+          {
+            "title": "Recurring incident escalation playbook",
+            "snippet": "When to open tickets and notify safety teams for repeat incidents.",
+            "url": "https://kb.thain.local/escalation-playbook",
+            "source": "kb",
+            "tags": [
+              "escalation",
+              "incident"
+            ]
+          },
+          {
+            "title": "Sensor calibration troubleshooting",
+            "snippet": "Diagnosing sensor faults that lead to operational disruptions.",
+            "url": "https://kb.thain.local/sensor-calibration",
+            "source": "kb",
+            "tags": [
+              "sensor",
+              "hardware"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-21T01:56:55.651624+00:00",
+      "type": "policy.check",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-21T01:56:55.666931+00:00",
+      "type": "tool.call",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 74
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-21T01:56:55.666931+00:00",
+      "type": "tool.result",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-21T01:57:06.268824+00:00",
+      "type": "response.ready",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 74,
+        "elapsed_ms": 21144
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-21T01:57:06.270855+00:00",
+      "type": "trace.emitted",
+      "run_id": "7529529dd6594622b8c3f1040ac43710",
+      "trace_id": "b64203ac3e834761a564438f62b685b4",
+      "turn_id": 2,
+      "data": {
+        "path": "traces\\run_7529529dd6594622b8c3f1040ac43710\\trace_b64203ac3e834761a564438f62b685b4_turn_2.json"
+      }
+    }
+  ]
+}

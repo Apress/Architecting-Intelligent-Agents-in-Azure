@@ -1,0 +1,131 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Thain Cost + Latency Metrics\nTelemetry captured from Sprint 2.x instrumentation, optimization, and reliability."
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Avg Cost per Request (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend cost = todouble(customDimensions[\"thain.cost.estimate_usd\"])\n| where isnotnull(cost)\n| summarize avg_cost=avg(cost) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Cache Hit Rate (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend cache_hit = tolower(tostring(customDimensions[\"thain.cache.hit\"]))\n| summarize total=count(), hits=countif(cache_hit == \"true\") by day=bin(timestamp, 1d)\n| extend cache_hit_rate = iif(total == 0, 0.0, todouble(hits) * 100.0 / todouble(total))\n| project day, cache_hit_rate\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Degraded Fallback Rate (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend degraded = tolower(coalesce(tostring(customDimensions[\"thain.reliability.degraded\"]), tostring(customDimensions[\"thain.fallback.used\"])))\n| summarize total=count(), degraded_count=countif(degraded == \"true\") by day=bin(timestamp, 1d)\n| extend degraded_rate = iif(total == 0, 0.0, todouble(degraded_count) * 100.0 / todouble(total))\n| project day, degraded_rate\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Dependency Failures (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend failure_count = todouble(customDimensions[\"thain.dependency.failure_count\"])\n| where isnotnull(failure_count)\n| summarize dependency_failures=sum(failure_count) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Retry Count (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend retry_count = todouble(customDimensions[\"thain.dependency.retry_count\"])\n| where isnotnull(retry_count)\n| summarize retries=sum(retry_count) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Requests by Model Profile (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend profile = tostring(customDimensions[\"thain.model.profile\"])\n| extend profile = iif(isempty(profile), \"standard\", profile)\n| summarize requests=count() by day=bin(timestamp, 1d), profile\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Avg Latency per Request (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend latency_ms = todouble(customDimensions[\"thain.latency.total_ms\"])\n| where isnotnull(latency_ms)\n| summarize avg_latency=avg(latency_ms) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Token Usage Trend (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend total_tokens = todouble(customDimensions[\"thain.tokens.total\"])\n| where isnotnull(total_tokens)\n| summarize avg_tokens=avg(total_tokens) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "P95 Latency (Daily)",
+        "query": "dependencies\n| where timestamp > ago(30d)\n| where name == \"thain.trace\"\n| extend latency_ms = todouble(customDimensions[\"thain.latency.total_ms\"])\n| where isnotnull(latency_ms)\n| summarize p95_latency=percentile(latency_ms, 95) by day=bin(timestamp, 1d)\n| order by day asc\n| render timechart",
+        "visualization": "timechart",
+        "resourceType": "microsoft.insights/components",
+        "resourceIds": [
+          "__APPINSIGHTS_RESOURCE_ID__"
+        ]
+      }
+    }
+  ],
+  "fallbackResourceIds": [
+    "__APPINSIGHTS_RESOURCE_ID__"
+  ]
+}

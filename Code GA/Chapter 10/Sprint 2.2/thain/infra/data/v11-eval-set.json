@@ -1,0 +1,57 @@
+[
+  {
+    "id": "eval-001",
+    "prompt": "Wi-Fi keeps dropping across two branches. Need the standard procedure / SOP steps.",
+    "rubric": "Use the relevant KB playbook and summarize the key steps clearly. Avoid unsafe or irrelevant guidance."
+  },
+  {
+    "id": "eval-002",
+    "prompt": "Recurring network outages. What is the escalation policy? Please reference the standard policy.",
+    "rubric": "Use the escalation policy KB guidance. Do not invent rules."
+  },
+  {
+    "id": "eval-003",
+    "prompt": "Sensor calibration drift is causing disruptions. Need the recovery playbook steps.",
+    "rubric": "Use the sensor calibration recovery playbook guidance. Keep the steps concise and relevant."
+  },
+  {
+    "id": "eval-005",
+    "prompt": "An unexpected equipment shutdown occurred. What does the standard response checklist say?",
+    "rubric": "Use the shutdown response checklist KB guidance. Avoid unsafe speculation."
+  },
+  {
+    "id": "eval-006",
+    "prompt": "We need a major incident update. What is the standard communications template?",
+    "rubric": "Use the incident communications template KB guidance. Keep it concise."
+  },
+  {
+    "id": "eval-007",
+    "prompt": "We need to notify the team about a major incident. Use the standard communications template.",
+    "rubric": "Use the incident communications template KB guidance. If a notification action is requested, follow approval gating."
+  },
+  {
+    "id": "eval-008",
+    "prompt": "Repeated VPN login failures reported. What is the troubleshooting guide?",
+    "rubric": "Use the VPN authentication troubleshooting KB guidance. Ask for missing details if needed."
+  },
+  {
+    "id": "eval-009",
+    "prompt": "Repeated VPN login failures after a policy update. What does the troubleshooting guide recommend?",
+    "rubric": "Use the VPN authentication troubleshooting KB guidance. Keep it concise."
+  },
+  {
+    "id": "eval-010",
+    "prompt": "Multiple sites report Wi-Fi drops. Which KB procedure should we follow?",
+    "rubric": "Use the Wi-Fi multi-site instability KB guidance."
+  },
+  {
+    "id": "eval-011",
+    "prompt": "Network packet loss across branches. When should we escalate per policy?",
+    "rubric": "Use the network escalation policy KB guidance. Do not invent thresholds."
+  },
+  {
+    "id": "eval-012",
+    "prompt": "Sensor drift alarms triggered again. What does the recovery playbook say?",
+    "rubric": "Use the sensor calibration recovery playbook KB guidance."
+  }
+]

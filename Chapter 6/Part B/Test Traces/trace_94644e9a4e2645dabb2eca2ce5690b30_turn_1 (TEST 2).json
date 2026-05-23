@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "d551939bf7e1455caa48561a6c15443b",
+    "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+    "turn_id": 1,
+    "started_at": "2026-01-13T12:38:31.662906+00:00",
+    "elapsed_ms": 50905
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-13T12:38:31.663982+00:00",
+      "type": "request.received",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "message_len": 77,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-13T12:38:50.720415+00:00",
+      "type": "policy.check",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-13T12:38:50.720415+00:00",
+      "type": "tool.call",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "args": {
+          "summary": "<redacted>",
+          "severity": "High",
+          "customer_id": "OpsTeam123",
+          "evidence_summary": "Multiple reports confirming equipment shutdown and evacuation impacts.",
+          "evidence_items": [
+            "Shutdown and evacuation history, including most recent Jan 26 event at 22:25 AEST"
+          ],
+          "summary_len": 67
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-13T12:39:11.654906+00:00",
+      "type": "tool.result",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "ok",
+        "duration_ms": 20933,
+        "result": {
+          "ticket_id": "TCK-D4F0FBAB",
+          "status": "created",
+          "approved": true,
+          "url": "https://tickets.thain.local/TCK-D4F0FBAB",
+          "summary": "Equipment shutdown causing evacuation needs operational assessment.",
+          "severity": "High",
+          "evidence_summary": "Multiple reports confirming equipment shutdown and evacuation impacts.",
+          "evidence_items": [
+            "Shutdown and evacuation history, including most recent Jan 26 event at 22:25 AEST"
+          ]
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-13T12:39:11.655910+00:00",
+      "type": "policy.check",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "warn",
+        "matched_rule_ids": [
+          "POL-WARN-001"
+        ],
+        "enforced_rule_id": "POL-WARN-001",
+        "reason": "policy_warn"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-13T12:39:11.655910+00:00",
+      "type": "tool.call",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "args": {
+          "summary": "<redacted>",
+          "severity": "High",
+          "customer_id": "SafetyDept456",
+          "evidence_summary": "Impact on safety protocol due to equipment failure resulting in evacuation.",
+          "evidence_items": [
+            "Incident logs and most recent Jan 26 event at 22:25 AEST"
+          ],
+          "summary_len": 71
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-13T12:39:13.938363+00:00",
+      "type": "tool.result",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "ok",
+        "duration_ms": 2282,
+        "result": {
+          "ticket_id": "TCK-1295B785",
+          "status": "created",
+          "approved": true,
+          "url": "https://tickets.thain.local/TCK-1295B785",
+          "summary": "Safety evaluation required for evacuation caused by equipment shutdown.",
+          "severity": "High",
+          "evidence_summary": "Impact on safety protocol due to equipment failure resulting in evacuation.",
+          "evidence_items": [
+            "Incident logs and most recent Jan 26 event at 22:25 AEST"
+          ]
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-13T12:39:22.568191+00:00",
+      "type": "response.ready",
+      "run_id": "d551939bf7e1455caa48561a6c15443b",
+      "trace_id": "94644e9a4e2645dabb2eca2ce5690b30",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 77,
+        "elapsed_ms": 50905
+      }
+    }
+  ]
+}

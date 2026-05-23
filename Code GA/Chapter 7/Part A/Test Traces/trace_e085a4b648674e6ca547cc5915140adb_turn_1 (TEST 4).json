@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "e6ca99c1411e4b96aee75825976a7028",
+    "trace_id": "e085a4b648674e6ca547cc5915140adb",
+    "turn_id": 1,
+    "started_at": "2026-01-18T06:08:34.282495+00:00",
+    "elapsed_ms": 12036
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-18T06:08:34.283458+00:00",
+      "type": "request.received",
+      "run_id": "e6ca99c1411e4b96aee75825976a7028",
+      "trace_id": "e085a4b648674e6ca547cc5915140adb",
+      "turn_id": 1,
+      "data": {
+        "message_len": 30,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-18T06:08:46.319508+00:00",
+      "type": "response.ready",
+      "run_id": "e6ca99c1411e4b96aee75825976a7028",
+      "trace_id": "e085a4b648674e6ca547cc5915140adb",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 30,
+        "elapsed_ms": 12036
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-18T06:08:46.321499+00:00",
+      "type": "trace.emitted",
+      "run_id": "e6ca99c1411e4b96aee75825976a7028",
+      "trace_id": "e085a4b648674e6ca547cc5915140adb",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_e6ca99c1411e4b96aee75825976a7028\\trace_e085a4b648674e6ca547cc5915140adb_turn_1.json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+    "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+    "turn_id": 1,
+    "started_at": "2026-01-11T08:05:18.948609+00:00",
+    "elapsed_ms": 27450
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-11T08:05:18.948609+00:00",
+      "type": "request.received",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "message_len": 148,
+        "has_urls": false
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-11T08:05:35.084074+00:00",
+      "type": "tool.call",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "args": {
+          "customer_message": "<redacted>",
+          "top_k": 3,
+          "time_window_days": 90,
+          "include_outcomes": false,
+          "customer_message_len": 70
+        }
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-11T08:05:35.409465+00:00",
+      "type": "tool.call",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 70
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-11T08:05:35.410465+00:00",
+      "type": "tool.result",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-11T08:05:37.852211+00:00",
+      "type": "tool.result",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "ok",
+        "duration_ms": 2768,
+        "result": []
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-11T08:05:46.398935+00:00",
+      "type": "response.ready",
+      "run_id": "eefee5ca222a4ea9aea6e5f1f60df940",
+      "trace_id": "eb6920f281de493e8684aa9bfa9e7761",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 148,
+        "elapsed_ms": 27450
+      }
+    }
+  ]
+}

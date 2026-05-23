@@ -1,0 +1,9 @@
+﻿agent-framework==1.5.0
+agent-framework-foundry==1.5.0
+agent-framework-devui==1.0.0b260519
+azure-identity>=1.17.0
+python-dotenv>=1.0.0
+azure-cosmos>=4.6.0
+pydantic>=2.8.0
+openai>=1.0.0
+azure-search-documents>=11.6.0

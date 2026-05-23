@@ -1,0 +1,70 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "d4487fb17b394481988a1c23fbc15d26",
+    "trace_id": "2f7ed60400504e57aef73dc00f5d7801",
+    "turn_id": 1,
+    "started_at": "2026-01-11T08:26:42.947736+00:00",
+    "elapsed_ms": 28642
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-11T08:26:42.948739+00:00",
+      "type": "request.received",
+      "run_id": "d4487fb17b394481988a1c23fbc15d26",
+      "trace_id": "2f7ed60400504e57aef73dc00f5d7801",
+      "turn_id": 1,
+      "data": {
+        "message_len": 113,
+        "has_urls": false
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-11T08:26:54.344668+00:00",
+      "type": "tool.call",
+      "run_id": "d4487fb17b394481988a1c23fbc15d26",
+      "trace_id": "2f7ed60400504e57aef73dc00f5d7801",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "args": {
+          "customer_message": "<redacted>",
+          "top_k": 3,
+          "time_window_days": 90,
+          "include_outcomes": false,
+          "customer_message_len": 65
+        }
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-11T08:27:00.740539+00:00",
+      "type": "tool.result",
+      "run_id": "d4487fb17b394481988a1c23fbc15d26",
+      "trace_id": "2f7ed60400504e57aef73dc00f5d7801",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "search_similar_complaints",
+        "status": "error",
+        "duration_ms": 6395,
+        "error_type": "SemanticSearchError"
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-11T08:27:11.590752+00:00",
+      "type": "response.ready",
+      "run_id": "d4487fb17b394481988a1c23fbc15d26",
+      "trace_id": "2f7ed60400504e57aef73dc00f5d7801",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 113,
+        "elapsed_ms": 28642
+      }
+    }
+  ]
+}

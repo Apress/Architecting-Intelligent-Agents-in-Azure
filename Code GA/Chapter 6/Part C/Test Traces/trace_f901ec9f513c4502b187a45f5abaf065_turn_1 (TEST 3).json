@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "427d931e881e4042a59918e410fb18bd",
+    "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+    "turn_id": 1,
+    "started_at": "2026-01-15T03:46:21.821527+00:00",
+    "elapsed_ms": 65356
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-15T03:46:21.821527+00:00",
+      "type": "request.received",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "message_len": 56,
+        "has_urls": false,
+        "safety_flags": []
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-15T03:46:33.226430+00:00",
+      "type": "policy.check",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "tool_kind": "read",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-15T03:46:33.227376+00:00",
+      "type": "tool.call",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "args": {
+          "customer_message": "<redacted>",
+          "customer_message_len": 56
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-15T03:46:33.228383+00:00",
+      "type": "tool.result",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "classify_issue",
+        "status": "ok",
+        "duration_ms": 1,
+        "result": {
+          "category": "General Inquiry",
+          "confidence": 0.1
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "ts": "2026-01-15T03:46:37.551849+00:00",
+      "type": "policy.check",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "tool_kind": "ticket",
+        "decision": "allow",
+        "matched_rule_ids": [],
+        "enforced_rule_id": null,
+        "reason": "policy_allow"
+      }
+    },
+    {
+      "seq": 6,
+      "ts": "2026-01-15T03:46:37.551849+00:00",
+      "type": "tool.call",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "args": {
+          "summary": "<redacted>",
+          "severity": "Moderate",
+          "customer_id": "Customer-X",
+          "evidence_summary": "Customer indicates delayed refund by 14 days.",
+          "evidence_items": [
+            "Complaint history: Recent multiple refund delay reports"
+          ],
+          "summary_len": 26
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "ts": "2026-01-15T03:47:15.329561+00:00",
+      "type": "tool.result",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "create_ticket",
+        "status": "ok",
+        "duration_ms": 37777,
+        "result": {
+          "status": "denied",
+          "approved": false,
+          "reason": "approval_not_provided"
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "ts": "2026-01-15T03:47:27.178568+00:00",
+      "type": "response.ready",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 56,
+        "elapsed_ms": 65356
+      }
+    },
+    {
+      "seq": 9,
+      "ts": "2026-01-15T03:47:27.179586+00:00",
+      "type": "trace.emitted",
+      "run_id": "427d931e881e4042a59918e410fb18bd",
+      "trace_id": "f901ec9f513c4502b187a45f5abaf065",
+      "turn_id": 1,
+      "data": {
+        "path": "traces\\run_427d931e881e4042a59918e410fb18bd\\trace_f901ec9f513c4502b187a45f5abaf065_turn_1.json"
+      }
+    }
+  ]
+}

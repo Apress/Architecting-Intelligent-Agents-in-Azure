@@ -1,0 +1,5 @@
+traces/
+infra/.last_image_tag
+.venv/
+__pycache__/
+*.pyc

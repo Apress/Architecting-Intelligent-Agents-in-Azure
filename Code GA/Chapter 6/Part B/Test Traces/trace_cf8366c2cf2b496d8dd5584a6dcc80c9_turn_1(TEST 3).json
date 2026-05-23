@@ -1,0 +1,74 @@
+{
+  "schema_version": "0.1",
+  "context": {
+    "run_id": "d0535d658c0d4241ae9353e6f79caf57",
+    "trace_id": "cf8366c2cf2b496d8dd5584a6dcc80c9",
+    "turn_id": 1,
+    "started_at": "2026-01-13T11:57:42.743627+00:00",
+    "elapsed_ms": 23687
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts": "2026-01-13T11:57:42.743627+00:00",
+      "type": "request.received",
+      "run_id": "d0535d658c0d4241ae9353e6f79caf57",
+      "trace_id": "cf8366c2cf2b496d8dd5584a6dcc80c9",
+      "turn_id": 1,
+      "data": {
+        "message_len": 112,
+        "has_urls": false,
+        "safety_flags": [
+          "contains_email",
+          "contains_phone"
+        ]
+      }
+    },
+    {
+      "seq": 2,
+      "ts": "2026-01-13T11:57:55.471711+00:00",
+      "type": "policy.check",
+      "run_id": "d0535d658c0d4241ae9353e6f79caf57",
+      "trace_id": "cf8366c2cf2b496d8dd5584a6dcc80c9",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "notify_team",
+        "tool_kind": "notify",
+        "decision": "deny",
+        "matched_rule_ids": [
+          "POL-DENY-004"
+        ],
+        "enforced_rule_id": "POL-DENY-004",
+        "reason": "policy_denied"
+      }
+    },
+    {
+      "seq": 3,
+      "ts": "2026-01-13T11:57:55.471711+00:00",
+      "type": "tool.result",
+      "run_id": "d0535d658c0d4241ae9353e6f79caf57",
+      "trace_id": "cf8366c2cf2b496d8dd5584a6dcc80c9",
+      "turn_id": 1,
+      "data": {
+        "tool_name": "notify_team",
+        "status": "blocked",
+        "duration_ms": 0,
+        "error_type": "PolicyDenied"
+      }
+    },
+    {
+      "seq": 4,
+      "ts": "2026-01-13T11:58:06.431791+00:00",
+      "type": "response.ready",
+      "run_id": "d0535d658c0d4241ae9353e6f79caf57",
+      "trace_id": "cf8366c2cf2b496d8dd5584a6dcc80c9",
+      "turn_id": 1,
+      "data": {
+        "category": "General Inquiry",
+        "summary": "<redacted>",
+        "summary_len": 112,
+        "elapsed_ms": 23687
+      }
+    }
+  ]
+}
