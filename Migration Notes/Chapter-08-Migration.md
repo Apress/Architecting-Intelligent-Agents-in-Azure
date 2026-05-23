@@ -23,7 +23,7 @@ Each sprint is a cumulative codebase — Sprint N is a standalone copy that adds
 |------|--------|
 | `requirements.txt` | Replaced `agent-framework==1.0.0b260123` with `agent-framework==1.5.0` + `agent-framework-core==1.5.0` + `agent-framework-foundry==1.5.0` + `agent-framework-devui==1.0.0b260519`; removed `azure-ai-agents` |
 | `constraints.txt` | Replaced beta pins (`agent-framework==1.0.0b260123`, etc.) with GA pins: `agent-framework==1.5.0`, `agent-framework-core==1.5.0`, `agent-framework-foundry==1.5.0`, `agent-framework-devui==1.0.0b260519`, `azure-ai-contentsafety>=1.0.0`, `azure-monitor-opentelemetry==1.4.0` |
-| `tools/classifier.py` | `ai_function` → `tool`; regex word-boundary bug fix (`\\b` → `\b`) |
+| `tools/classifier.py` | `ai_function` → `tool` |
 | `tools/action_tools.py` | `ai_function` → `tool` (all decorated functions); see Sprint 6 below for additional changes |
 | `tools/search.py` | `ai_function` → `tool` |
 | `memory/persistent_provider.py` | Full GA rewrite — `invoking` → `before_run`; `source_id` required; `context.instructions.append(...)` |
@@ -294,12 +294,6 @@ def create_action_tools(action_config, approval_service=None, docs_service=None)
 - **Added**: `FakeDocsService` (returns stub corpus) and `FailingDocsService` (raises `RuntimeError`)
 - **Updated**: `test_retrieve_docs_returns_top_k` now passes `docs_service=FakeDocsService()` — without it, tool returns a single `_trace_error` dict
 - **Added**: `test_retrieve_docs_returns_trace_error_on_failure` — verifies error encapsulation when `docs_service.retrieve` raises
-
----
-
-## Bug Fixed Across All Sprints
-
-In `tools/classifier.py`, the regex pattern used `rf"\\b{keyword}\\b"` (literal backslash+b) instead of `rf"\b{keyword}\b"` (word boundary). This caused the classifier to always return `"General Inquiry"` for any input. Fixed in all GA sprints.
 
 ---
 

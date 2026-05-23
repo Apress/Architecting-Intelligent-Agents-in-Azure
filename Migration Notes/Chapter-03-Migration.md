@@ -164,12 +164,6 @@ self.assertEqual(context.instructions, [])
 
 ---
 
-## Bug Fixed in GA Version
-
-Same regex bug as Chapter 2 — `\\b` → `\b` in `tools/classifier.py`. See [Chapter-02-Migration.md](Chapter-02-Migration.md#bug-fixed-in-ga-version) for details.
-
----
-
 ## Suggested In-Chapter Note (1–2 sentences)
 
 > The companion repository includes Chapter 3 updated for MAF 1.5.0 GA. `PersistentContextProvider` now implements `before_run()` instead of `invoking()`, mutating `context.instructions` directly; `AggregateContextProvider` is removed — pass a list of providers to `Agent` directly. See `COMPANION.md` for the complete migration reference.

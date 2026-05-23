@@ -209,12 +209,6 @@ Ch10 tests are identical in structure to Ch9 tests — the same 55-test suite is
 
 ---
 
-## Regex Bug Fixed (Same as Chapters 2–9)
-
-`rf"\\b{re.escape(keyword)}\\b"` → `rf"\b{re.escape(keyword)}\b"` in `tools/classifier.py`.
-
----
-
 ## DevUI Note
 
 DevUI is used in the book as a learning aid. The primary validation path for GA is the CLI and `pytest tests/`. The `tracing_enabled`/`instrumentation_enabled` parameter shim in `launch_devui()` is retained as-is via runtime inspection.

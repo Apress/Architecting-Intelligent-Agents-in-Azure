@@ -151,9 +151,3 @@ Migrated from `invoking()` to `before_run()` pattern. `from agent_framework impo
 No changes required — these tests have no `agent_framework` imports. `FunctionTool` is callable, so tool invocation tests work unchanged.
 
 **Results: Part A 21/21 ✅ · Part B 34/34 ✅ · Part C 38/38 ✅**
-
----
-
-## Bug Fixed in GA Version
-
-Same regex bug as Chapters 2–5 — `rf"\\b{re.escape(keyword)}\\b"` → `rf"\b{re.escape(keyword)}\b"` in `tools/classifier.py` across all three parts.

@@ -245,22 +245,6 @@ serve_devui(entities=[...], host=host, port=port, auto_open=auto_open, instrumen
 
 ---
 
-## Bug Fixed in GA Version
-
-The original classifier in `tools/classifier.py` contained a regex bug:
-
-```python
-# Bug: \\b in a raw f-string is a literal backslash+b, NOT a word boundary
-hits = sum(1 for keyword in keywords if re.search(rf"\\b{re.escape(keyword)}\\b", normalized))
-
-# Fix: single \b in a raw f-string IS a word boundary
-hits = sum(1 for keyword in keywords if re.search(rf"\b{re.escape(keyword)}\b", normalized))
-```
-
-This meant the classifier always returned "General Inquiry" (the fallback) regardless of input. The bug was masked in the beta because the LLM itself does the classification — the tool is called for validation, and even a wrong classifier result is handled gracefully by the agent's fallback logic. Fixed in the GA codebase.
-
----
-
 ## New Tests Added
 
 Chapter 2 originally had no test file. The GA version adds `tests/test_chapter2.py` with 24 unit tests covering:

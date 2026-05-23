@@ -144,9 +144,3 @@ print(response)
 ```
 
 `run_thain()` is unchanged for any programmatic callers that need the structured dict.
-
----
-
-## Bug Fixed in GA Version
-
-Same regex bug as Chapters 2–4 — `rf"\\b{keyword}\\b"` → `rf"\b{keyword}\b"` in `tools/classifier.py`.

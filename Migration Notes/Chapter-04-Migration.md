@@ -235,9 +235,3 @@ print(response)   # prints the Markdown triage card
 ```
 
 `run_thain()` is unchanged and still returns the structured dict for any programmatic callers. The DevUI path (`ThainDevAgent`) is also unchanged.
-
----
-
-## Bug Fixed in GA Version
-
-Same regex bug as Chapters 2 and 3 — `rf"\\b{keyword}\\b"` → `rf"\b{keyword}\b"` in `tools/classifier.py`.

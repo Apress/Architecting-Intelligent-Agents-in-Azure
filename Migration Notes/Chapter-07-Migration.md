@@ -21,7 +21,7 @@ Chapter 7 introduces multi-agent orchestration via a Blackboard pattern. The GA 
 |------|--------|
 | `requirements.txt` | Replaced beta packages with `agent-framework==1.5.0`, `agent-framework-core==1.5.0`, `agent-framework-foundry==1.5.0`, `agent-framework-devui==1.0.0b260519`; removed `azure-ai-agents` |
 | `constraints.txt` | Replaced beta pins with GA pins |
-| `tools/classifier.py` | `ai_function` → `tool`; regex bug fix (`\\b` → `\b`) |
+| `tools/classifier.py` | `ai_function` → `tool` |
 | `tools/action_tools.py` | `ai_function` → `tool` (all 3 occurrences) |
 | `tools/search.py` | `ai_function` → `tool` |
 | `memory/persistent_provider.py` | Full GA rewrite (see below) |
