@@ -13,5 +13,3 @@ azure-search-documents==11.6.0
 fastapi==0.136.3
 uvicorn==0.47.0
 azure-keyvault-secrets==4.7.0
-azure-monitor-opentelemetry==1.4.0
-azure-ai-contentsafety==1.0.0
