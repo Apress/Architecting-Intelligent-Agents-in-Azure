@@ -46,8 +46,6 @@ python -m venv .venv
 pip install -r requirements.txt -c constraints.txt
 ```
 
-On macOS/Linux, use `source .venv/bin/activate` instead of the Windows activation command.
-
 **Original book listings (Chapters 2 to 10):**
 
 The `Chapter {N}/` folders match the printed listings:
@@ -67,7 +65,23 @@ Where a chapter provides DevUI support, you can use the MAF DevUI for interactiv
 python main.py --devui --devui-open
 ```
 
+When switching between chapters or between original and GA code, stop any existing DevUI server before starting another one, or choose a different `--devui-port`. Run each chapter from its own activated virtual environment to avoid mixing package versions.
+
 Create your own `.env` file with the required Azure settings before running. Authenticate with `az login` or `az login --use-device-code` if needed.
+
+## Cloning a Specific Chapter
+
+To clone only selected chapters without downloading the full repository, use Git sparse checkout:
+
+```bash
+git clone --no-checkout https://github.com/Apress/Architecting-Intelligent-Agents-in-Azure.git
+cd Architecting-Intelligent-Agents-in-Azure
+git sparse-checkout init --cone
+git sparse-checkout set "Code GA/Chapter 2" "Code GA/Chapter 3"
+git checkout main
+```
+
+Replace the folder names with whichever chapters you need. You can include both original and GA folders in the same sparse checkout.
 
 ## Contributions
 
