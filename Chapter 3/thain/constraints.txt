@@ -6,4 +6,5 @@ azure-ai-agents==1.2.0b5
 azure-identity==1.17.0
 python-dotenv==1.0.0
 azure-cosmos==4.6.0
-pydantic==2.8.0
+pydantic==2.13.4
+azure-ai-projects==1.0.0

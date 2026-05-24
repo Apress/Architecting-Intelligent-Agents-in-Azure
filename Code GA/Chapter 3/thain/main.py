@@ -237,6 +237,13 @@ def run_thain(customer_message: str, config: Optional[AzureAgentConfig] = None) 
     return asyncio.run(run_thain_async(customer_message, resolved_config))
 
 
+def close_persistent_memory() -> None:
+    """Close the Cosmos client used by the optional persistent memory layer."""
+
+    if persistent_memory_service is not None:
+        asyncio.run(persistent_memory_service.close())
+
+
 def _extract_latest_role_text(messages: Any, role: str) -> Optional[str]:
     """Helper to pull the latest message text for a given role from Agent Framework structures."""
 
@@ -271,13 +278,87 @@ class ThainDevAgent:
         self.instructions = BASE_INSTRUCTIONS
         self.tools = [classify_issue_tool]
 
-    async def run(self, messages: Any, **kwargs: Any) -> AgentResponse:
+    def _create_agent(self, credential: DefaultAzureCredential) -> Agent:
+        provider_chain: list[ContextProvider] = [MemoryContextProvider(memory_store)]
+        if persistent_memory_service and persistent_memory_config:
+            provider_chain.append(
+                PersistentContextProvider(
+                    memory_service=persistent_memory_service,
+                    default_customer_id=persistent_memory_config.customer_id,
+                )
+            )
+
+        chat_client = FoundryChatClient(
+            project_endpoint=self._config.endpoint,
+            model=self._config.model,
+            credential=credential,
+        )
+        return Agent(
+            client=chat_client,
+            name="Thain",
+            instructions=BASE_INSTRUCTIONS,
+            tools=[classify_issue_tool],
+            context_providers=provider_chain,
+            default_options={"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}},
+        )
+
+    async def _record_response(self, user_text: str, response: AgentResponse) -> None:
+        raw_text = response.text.strip()
+        try:
+            payload = parse_structured_response(raw_text)
+        except ValueError:
+            fallback = classify_issue(user_text)
+            payload = {
+                "category": fallback.get("category", "General Inquiry"),
+                "summary": user_text,
+            }
+
+        if "category" not in payload:
+            fallback = classify_issue(user_text)
+            payload["category"] = fallback["category"]
+        if "summary" not in payload:
+            payload["summary"] = user_text
+
+        update_memory(user_text, payload)
+        normalized = {"category": payload["category"], "summary": payload["summary"]}
+        if persistent_memory_service and persistent_memory_config:
+            try:
+                await persistent_memory_service.persist(
+                    customer_id=persistent_memory_config.customer_id,
+                    category=normalized["category"],
+                    summary=normalized["summary"],
+                    message=user_text,
+                    confidence=float(payload.get("confidence", 1.0)),
+                )
+            except PersistentStoreError:
+                logger.debug("Persistent memory write failed; continuing without durable storage.", exc_info=True)
+
+    def run(self, messages: Any, *, stream: bool = False, session: Any = None, **kwargs: Any) -> Any:
         user_text = _extract_latest_role_text(messages, "user")
         if not user_text:
             raise ValueError("ThainDevAgent requires a user message to operate.")
 
-        _, agent_response = await run_thain_agent(user_text, self._config)
-        return agent_response
+        credential = DefaultAzureCredential(exclude_interactive_browser_credential=False)
+        agent = self._create_agent(credential)
+        result = agent.run(user_text, stream=stream, session=session, **kwargs)
+
+        async def close_credential() -> None:
+            await credential.close()
+
+        if stream:
+            return result.with_result_hook(lambda response: self._record_response(user_text, response)).with_cleanup_hook(
+                close_credential
+            )
+
+        async def run_once() -> AgentResponse:
+            try:
+                response = await result
+                await self._record_response(user_text, response)
+                return response
+            finally:
+                await credential.close()
+
+        return run_once()
 
 
 def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -> None:
@@ -312,32 +393,35 @@ def main() -> None:
         return
 
     if args.interactive:
-        print("Entering interactive Thain session. Type 'exit' or 'quit' to leave.\n")
-        while True:
-            try:
-                user_input = input("Customer message> ").strip()
-            except KeyboardInterrupt:
-                print("\nExiting.")
-                break
+        try:
+            print("Entering interactive Thain session. Type 'exit' or 'quit' to leave.\n")
+            while True:
+                try:
+                    user_input = input("Customer message> ").strip()
+                except KeyboardInterrupt:
+                    print("\nExiting.")
+                    break
 
-            if not user_input:
-                continue
-            if user_input.lower() in {"exit", "quit"}:
-                break
+                if not user_input:
+                    continue
+                if user_input.lower() in {"exit", "quit"}:
+                    break
 
-            try:
-                response = run_thain(user_input)
-            except MissingConfigError as config_error:
-                print(f"Configuration error: {config_error}")
-                break
-            except HttpResponseError as azure_error:
-                print(f"Azure request failed: {azure_error}")
-                break
-            except Exception as unexpected:
-                print(f"Unexpected failure: {unexpected}")
-                break
+                try:
+                    response = run_thain(user_input)
+                except MissingConfigError as config_error:
+                    print(f"Configuration error: {config_error}")
+                    break
+                except HttpResponseError as azure_error:
+                    print(f"Azure request failed: {azure_error}")
+                    break
+                except Exception as unexpected:
+                    print(f"Unexpected failure: {unexpected}")
+                    break
 
-            print(json.dumps(response, ensure_ascii=False))
+                print(json.dumps(response, ensure_ascii=False))
+        finally:
+            close_persistent_memory()
         return
 
     customer_message = read_customer_message(args)
@@ -350,6 +434,8 @@ def main() -> None:
         sys.exit(f"Azure request failed: {azure_error}")
     except Exception as unexpected:
         sys.exit(f"Unexpected failure: {unexpected}")
+    finally:
+        close_persistent_memory()
 
     print(json.dumps(response, ensure_ascii=False))
 
