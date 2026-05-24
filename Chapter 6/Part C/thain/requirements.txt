@@ -1,9 +1,9 @@
-azure-ai-agents>=1.1.0
-azure-identity>=1.17.0
-python-dotenv>=1.0.0
+azure-ai-agents==1.2.0b5
+azure-identity==1.17.0
+python-dotenv==1.0.0
 agent-framework-azure-ai==1.0.0b251016
 agent-framework-devui==1.0.0b251016
-azure-cosmos>=4.6.0
-pydantic>=2.8.0
-openai>=1.0.0
-azure-search-documents>=11.6.0
+azure-cosmos==4.6.0
+pydantic==2.8.0
+openai==1.0.0
+azure-search-documents==11.6.0
