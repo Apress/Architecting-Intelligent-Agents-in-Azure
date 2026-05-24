@@ -172,6 +172,8 @@ self.assertEqual(context.instructions, [])
 
 ## Architectural Observations
 
+**DevUI streaming adapter.** DevUI 1.0.0b260519 calls registered agent entities with `stream=True` and expects an async-iterable response stream. The GA companion code therefore avoids exposing `async def run(...)` directly on DevUI wrapper entities. For chapters that still use the non-streaming `run_thain_agent(...)` helper internally, the wrapper returns a small stream adapter that yields the final `AgentResponse` and implements `get_final_response()`. This keeps DevUI compatible without changing the chapter's core execution path.
+
 **`after_run()` for write-back.** The GA `ContextProvider` interface now has both `before_run()` and `after_run()`. An improved Chapter 3 pattern would move the persistent memory write-back (currently in `run_thain_agent` after `agent.run()`) into `PersistentContextProvider.after_run()`. This keeps `main.py` simpler and makes the memory lifecycle self-contained within the provider:
 
 ```python

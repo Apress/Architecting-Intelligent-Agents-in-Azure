@@ -533,7 +533,6 @@ def _extract_latest_role_text(messages: Any, role: str) -> Optional[str]:
 
     if messages is None:
         return None
-
     if isinstance(messages, Message):
         if messages.role == role:
             return messages.text
@@ -555,6 +554,46 @@ def _extract_latest_role_text(messages: Any, role: str) -> Optional[str]:
 
 
 # --- DevUI helper classes/functions ---
+class _SingleResponseStream:
+    """Adapter for DevUI streaming when the chapter uses the non-streaming runner."""
+
+    def __init__(self, response_coro: Any, entity_id: str | None = None) -> None:
+        self._response_coro = response_coro
+        self._entity_id = entity_id
+        self._response: AgentResponse | None = None
+        self._yielded = False
+
+    def __aiter__(self) -> "_SingleResponseStream":
+        return self
+
+    async def __anext__(self) -> AgentResponse:
+        if self._yielded:
+            raise StopAsyncIteration
+        self._yielded = True
+        return await self.get_final_response()
+
+    async def get_final_response(self) -> AgentResponse:
+        if self._response is None:
+            _, response = await self._response_coro
+            self._apply_entity_metadata(response)
+            self._response = response
+        return self._response
+
+    def _apply_entity_metadata(self, response: AgentResponse) -> None:
+        if not self._entity_id:
+            return
+        try:
+            metadata = getattr(response, "metadata", None)
+            if not isinstance(metadata, dict):
+                metadata = {}
+                response.metadata = metadata
+            metadata.setdefault("entityId", self._entity_id)
+            metadata.setdefault("entity_id", self._entity_id)
+        except Exception:
+            pass
+
+
+
 class ThainDevAgent:
     """Thin wrapper that adapts run_thain for the Agent Framework DevUI."""
 
@@ -572,21 +611,18 @@ class ThainDevAgent:
         tools.extend(create_action_tools(action_tools_config, approval_service))
         self.tools = tools
 
-    async def run(self, messages: Any, **kwargs: Any) -> AgentResponse:
+    def run(self, messages: Any, *, stream: bool = False, session: Any = None, **kwargs: Any) -> Any:
         user_text = _extract_latest_role_text(messages, "user")
         if not user_text:
             raise ValueError("ThainDevAgent requires a user message to operate.")
 
-        _, agent_response = await run_thain_agent(user_text, self._config)
-        try:
-            if not getattr(agent_response, "metadata", None):
-                agent_response.metadata = {}
-            if isinstance(agent_response.metadata, dict):
-                agent_response.metadata["entityId"] = self.id
-        except Exception:
-            pass
-        return agent_response
-
+        response_stream = _SingleResponseStream(
+            run_thain_agent(user_text, self._config),
+            entity_id=getattr(self, "id", None),
+        )
+        if stream:
+            return response_stream
+        return response_stream.get_final_response()
 
 def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -> None:
     """Launch the Agent Framework DevUI with the Thain agent registered."""
