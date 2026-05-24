@@ -8,7 +8,7 @@ agent-framework-devui==1.0.0b260123
 agent-framework==1.0.0b260123
 azure-cosmos==4.6.0
 pydantic==2.13.4
-openai==1.0.0
+openai==1.109.1
 azure-search-documents==11.6.0
 fastapi==0.111.0
 uvicorn==0.30.0
