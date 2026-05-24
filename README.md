@@ -40,20 +40,27 @@ The original `Chapter X/` listings preserve the structure and flow of the printe
 **GA code (Chapters 2 to 10):**
 
 ```bash
-cd "Code GA/Chapter 4/thain"
+cd "Code GA/Chapter {N}/thain"
+python -m venv .venv
+.\.venv\Scripts\activate        # Windows
+# source .venv/bin/activate     # macOS/Linux
 pip install -r requirements.txt -c constraints.txt
-pytest tests/ -v
 ```
 
-**Original book listings with DevUI (Chapters 2 to 10):**
+**Original book listings (Chapters 2 to 10):**
 
-The `Chapter X/` folders match the printed listings and support the MAF DevUI for interactive exploration of agent reasoning, tool calls, and traces:
+The `Chapter {N}/` folders match the printed listings and support the MAF DevUI for interactive exploration of agent reasoning, tool calls, and traces:
 
 ```bash
-cd "Chapter 4/thain"
+cd "Chapter {N}/thain"
+python -m venv .venv
+.\.venv\Scripts\activate        # Windows
+# source .venv/bin/activate     # macOS/Linux
 pip install -r requirements.txt -c constraints.txt
 python main.py --devui --devui-open
 ```
+
+Create your own `.env` file with the required Azure settings before running. Authenticate with `az login` or `az login --use-device-code` if needed.
 
 ## Contributions
 
