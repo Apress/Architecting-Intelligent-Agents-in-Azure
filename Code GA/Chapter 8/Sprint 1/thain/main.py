@@ -699,10 +699,7 @@ async def run_thain_agent(
                 instructions += " You may use the following tools when appropriate: " + ", ".join(action_notes) + "."
     
             chat_tools = tools_list
-            default_options: dict[str, Any] = {
-                "mode": "required",
-                "required_function_name": classify_issue_tool.name,
-            }
+            default_options: dict[str, Any] = {"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}}
             if response_mode != "normal":
                 chat_tools = []
                 default_options = {}
@@ -992,6 +989,8 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
         serve_kwargs["tracing_enabled"] = tracing_enabled
     elif "instrumentation_enabled" in params:
         serve_kwargs["instrumentation_enabled"] = tracing_enabled
+    if "auth_enabled" in params:
+        serve_kwargs["auth_enabled"] = False
 
     serve_devui(**serve_kwargs)
 

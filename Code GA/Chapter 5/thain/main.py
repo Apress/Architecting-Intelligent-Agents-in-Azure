@@ -265,7 +265,7 @@ async def run_thain_agent(
             instructions=instructions,
             tools=tools_list,
             context_providers=provider_chain,
-            default_options={"mode": "required", "required_function_name": classify_issue_tool.name},
+            default_options={"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}},
         )
 
         response = await agent.run(customer_message)
@@ -315,7 +315,6 @@ async def run_thain_agent(
                 await semantic_service.index_record(record)
             except (SemanticSearchError, Exception):
                 logger.debug("Semantic indexing failed; continuing without semantic storage.", exc_info=True)
-        response.value = normalized
         return normalized, response
     finally:
         await credential.close()
@@ -405,7 +404,7 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
 
     config = load_config()
     agent_entity = ThainDevAgent(config)
-    serve_devui(entities=[agent_entity], host=host, port=port, auto_open=auto_open, instrumentation_enabled=tracing_enabled)
+    serve_devui(entities=[agent_entity], host=host, port=port, auto_open=auto_open, instrumentation_enabled=tracing_enabled, auth_enabled=False)
 
 
 def main() -> None:

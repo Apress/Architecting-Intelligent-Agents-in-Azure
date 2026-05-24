@@ -1,6 +1,15 @@
-﻿agent-framework==1.5.0
+agent-framework==1.5.0
 agent-framework-core==1.5.0
 agent-framework-foundry==1.5.0
 agent-framework-devui==1.0.0b260519
-azure-ai-contentsafety>=1.0.0
+azure-ai-contentsafety==1.0.0
 azure-monitor-opentelemetry==1.4.0
+azure-identity==1.25.3
+python-dotenv==1.2.2
+azure-cosmos==4.15.0
+pydantic==2.13.4
+openai==2.38.0
+azure-search-documents==11.6.0
+azure-keyvault-secrets==4.11.0
+fastapi==0.136.3
+uvicorn==0.47.0

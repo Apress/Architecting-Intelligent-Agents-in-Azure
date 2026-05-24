@@ -8,7 +8,7 @@ Thain listens to a single customer complaint, reasons over it with Azure OpenAI 
 
 - Python 3.11+
 - An Azure OpenAI resource with an **Assistants**-enabled GPT-4o deployment
-- The `azure-ai-agents` package (installed automatically when running `pip install -r requirements.txt` if you add one, or install manually with `pip install azure-ai-agents`)
+- Dependencies installed from `requirements.txt` with `constraints.txt` applied
 
 ## Configuration
 
@@ -23,6 +23,12 @@ The app loads this file automatically via `python-dotenv`.
 Authenticate with Azure AD by running `az login` so `DefaultAzureCredential` can obtain a token.
 
 ## Usage
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt -c constraints.txt
+```
 
 ### Single message (CLI)
 

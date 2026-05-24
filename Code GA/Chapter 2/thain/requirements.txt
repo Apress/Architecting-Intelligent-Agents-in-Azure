@@ -1,5 +1,5 @@
-﻿azure-identity>=1.17.0
-python-dotenv>=1.0.0
+azure-identity==1.25.3
+python-dotenv==1.2.2
 agent-framework==1.5.0
 agent-framework-foundry==1.5.0
 agent-framework-devui==1.0.0b260519

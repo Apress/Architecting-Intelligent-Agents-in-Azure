@@ -40,23 +40,30 @@ The original `Chapter X/` listings preserve the structure and flow of the printe
 **GA code (Chapters 2 to 10):**
 
 ```bash
-cd "Code GA/Chapter {N}/thain"
+cd "Code GA/<chapter folder>/thain"
 python -m venv .venv
-.\.venv\Scripts\activate        # Windows
-# source .venv/bin/activate     # macOS/Linux
+.\.venv\Scripts\activate
 pip install -r requirements.txt -c constraints.txt
 ```
 
+On macOS/Linux, use `source .venv/bin/activate` instead of the Windows activation command.
+
 **Original book listings (Chapters 2 to 10):**
 
-The `Chapter {N}/` folders match the printed listings and support the MAF DevUI for interactive exploration of agent reasoning, tool calls, and traces:
+The `Chapter {N}/` folders match the printed listings:
 
 ```bash
 cd "Chapter {N}/thain"
 python -m venv .venv
-.\.venv\Scripts\activate        # Windows
-# source .venv/bin/activate     # macOS/Linux
+.\.venv\Scripts\activate
 pip install -r requirements.txt -c constraints.txt
+```
+
+On macOS/Linux, use `source .venv/bin/activate` instead of the Windows activation command.
+
+Where a chapter provides DevUI support, you can use the MAF DevUI for interactive exploration of agent reasoning, tool calls, and traces:
+
+```bash
 python main.py --devui --devui-open
 ```
 

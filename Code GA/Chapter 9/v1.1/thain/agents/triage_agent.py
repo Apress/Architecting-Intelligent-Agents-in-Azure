@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from dataclasses import asdict
@@ -79,7 +79,7 @@ class AgenticTriageAgent:
             name="TriageAgent",
             instructions=instructions,
             tools=[],
-            default_options={"mode": "none"},
+            default_options={"tool_choice": {"mode": "none"}},
         )
         response = await agent.run(message)
 

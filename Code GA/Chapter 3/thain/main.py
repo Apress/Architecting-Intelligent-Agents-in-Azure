@@ -181,7 +181,7 @@ async def run_thain_agent(
             instructions=BASE_INSTRUCTIONS,
             tools=[classify_issue_tool],
             context_providers=provider_chain,
-            default_options={"mode": "required", "required_function_name": classify_issue_tool.name},
+            default_options={"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}},
         )
 
         response = await agent.run(customer_message)
@@ -218,7 +218,6 @@ async def run_thain_agent(
                 )
             except PersistentStoreError:
                 logger.debug("Persistent memory write failed; continuing without durable storage.", exc_info=True)
-        response.value = normalized
         return normalized, response
     finally:
         await credential.close()
@@ -292,6 +291,7 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
         port=port,
         auto_open=auto_open,
         instrumentation_enabled=tracing_enabled,
+        auth_enabled=False,
     )
 
 

@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 import os
 import asyncio
 import json
@@ -526,11 +526,11 @@ def _load_safety_templates() -> dict[str, str]:
 
     defaults = {
         "human_escalate": (
-            "I'm really sorry you're feeling this way. Youâ€™re not alone, and help is available.\n\n"
+            "I'm really sorry you're feeling this way. You’re not alone, and help is available.\n\n"
             "If you feel like you might hurt yourself or are in immediate danger, please call your local emergency number. "
             "In the U.S., you can call or text 988 to reach the Suicide & Crisis Lifeline (24/7). "
             "If you're outside the U.S., I can help find local support resources.\n\n"
-            "If it helps, consider reaching out to someone you trust right now. Iâ€™m here to support you."
+            "If it helps, consider reaching out to someone you trust right now. I’m here to support you."
         ),
         "refuse": "I'm sorry, but I can't assist with that request.",
     }
@@ -787,10 +787,7 @@ async def run_thain_agent(
                 instructions += " You may use the following tools when appropriate: " + ", ".join(action_notes) + "."
 
             chat_tools = tools_list
-            default_options: dict[str, Any] = {
-                "mode": "required",
-                "required_function_name": classify_issue_tool.name,
-            }
+            default_options: dict[str, Any] = {"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}}
             if (board.recall is not None) or (board.knowledge is not None) or (board.action is not None):
                 # Orchestrator already gathered evidence / executed actions; prevent duplicate tool calls.
                 chat_tools = []
@@ -1074,6 +1071,8 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
         serve_kwargs["tracing_enabled"] = tracing_enabled
     elif "instrumentation_enabled" in params:
         serve_kwargs["instrumentation_enabled"] = tracing_enabled
+    if "auth_enabled" in params:
+        serve_kwargs["auth_enabled"] = False
 
     serve_devui(**serve_kwargs)
 

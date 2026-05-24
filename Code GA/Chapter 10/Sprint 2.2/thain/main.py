@@ -1611,7 +1611,7 @@ async def run_thain_agent(
                 instructions=instructions,
                 tools=chat_tools,
                 context_providers=provider_chain,
-                default_options=tool_choice,
+                default_options={"tool_choice": tool_choice},
             )
 
             response = await agent.run(customer_message)
@@ -1919,6 +1919,8 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
         serve_kwargs["tracing_enabled"] = tracing_enabled
     elif "instrumentation_enabled" in params:
         serve_kwargs["instrumentation_enabled"] = tracing_enabled
+    if "auth_enabled" in params:
+        serve_kwargs["auth_enabled"] = False
 
     serve_devui(**serve_kwargs)
 

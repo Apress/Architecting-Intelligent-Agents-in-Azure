@@ -160,7 +160,7 @@ async def run_thain_agent(
             instructions=BASE_INSTRUCTIONS,
             tools=[classify_issue_tool],
             context_providers=[memory_provider],
-            default_options={"mode": "required", "required_function_name": classify_issue_tool.name},
+            default_options={"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}},
         )
 
         response = await agent.run(customer_message)
@@ -188,7 +188,6 @@ async def run_thain_agent(
 
     update_memory(customer_message, payload)
     normalized = {"category": payload["category"], "summary": payload["summary"]}
-    response.value = normalized
     return normalized, response
 
 
@@ -240,13 +239,66 @@ class ThainDevAgent:
         self.instructions = BASE_INSTRUCTIONS
         self.tools = [classify_issue_tool]
 
-    async def run(self, messages: Any, **kwargs: Any) -> AgentResponse:
+    def _create_agent(self, credential: DefaultAzureCredential) -> Agent:
+        chat_client = FoundryChatClient(
+            project_endpoint=self._config.endpoint,
+            model=self._config.model,
+            credential=credential,
+        )
+        return Agent(
+            client=chat_client,
+            name="Thain",
+            instructions=BASE_INSTRUCTIONS,
+            tools=[classify_issue_tool],
+            context_providers=[MemoryContextProvider(memory_store)],
+            default_options={"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}},
+        )
+
+    async def _record_response(self, user_text: str, response: AgentResponse) -> None:
+        raw_text = response.text.strip()
+        try:
+            payload = parse_structured_response(raw_text)
+        except ValueError:
+            fallback = classify_issue(user_text)
+            payload = {
+                "category": fallback.get("category", "General Inquiry"),
+                "summary": user_text,
+            }
+
+        if "category" not in payload:
+            fallback = classify_issue(user_text)
+            payload["category"] = fallback["category"]
+        if "summary" not in payload:
+            payload["summary"] = user_text
+
+        update_memory(user_text, payload)
+
+    def run(self, messages: Any, *, stream: bool = False, session: Any = None, **kwargs: Any) -> Any:
         user_text = _extract_latest_role_text(messages, "user")
         if not user_text:
             raise ValueError("ThainDevAgent requires a user message to operate.")
 
-        _, agent_response = await run_thain_agent(user_text, self._config)
-        return agent_response
+        credential = DefaultAzureCredential(exclude_interactive_browser_credential=False)
+        agent = self._create_agent(credential)
+        result = agent.run(user_text, stream=stream, session=session, **kwargs)
+
+        async def close_credential() -> None:
+            await credential.close()
+
+        if stream:
+            return result.with_result_hook(lambda response: self._record_response(user_text, response)).with_cleanup_hook(
+                close_credential
+            )
+
+        async def run_once() -> AgentResponse:
+            try:
+                response = await result
+                await self._record_response(user_text, response)
+                return response
+            finally:
+                await credential.close()
+
+        return run_once()
 
 
 def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -> None:
@@ -260,6 +312,7 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
         port=port,
         auto_open=auto_open,
         instrumentation_enabled=tracing_enabled,
+        auth_enabled=False,
     )
 
 

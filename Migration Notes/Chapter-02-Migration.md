@@ -54,14 +54,19 @@ agent = Agent(
     instructions=BASE_INSTRUCTIONS,
     tools=[classify_issue_tool],
     context_providers=[memory_provider],
-    default_options={"mode": "required", "required_function_name": classify_issue_tool.name},
+    default_options={
+        "tool_choice": {
+            "mode": "required",
+            "required_function_name": classify_issue_tool.name,
+        }
+    },
 )
 response = await agent.run(customer_message)
 ```
 
 Key differences:
 - `chat_client=` → `client=`
-- `tool_choice=ToolMode.REQUIRED(name)` → `default_options={"mode": "required", "required_function_name": name}`
+- `tool_choice=ToolMode.REQUIRED(name)` → `default_options={"tool_choice": {"mode": "required", "required_function_name": name}}`
 - `store=True` removed — agent history is now managed via sessions (optional; stateless by default)
 - `context_providers=single_provider` → `context_providers=[list]` (always a list)
 - No `async with` needed — `Agent` is no longer an async context manager
@@ -121,7 +126,7 @@ def classify_issue_tool(customer_message: Annotated[str, "..."]) -> ...:
     ...
 ```
 
-The `@tool` decorator returns a `FunctionTool` object (was `AIFunction`). The `.name` attribute still works the same way, so `classify_issue_tool.name` is still valid for `default_options`.
+The `@tool` decorator returns a `FunctionTool` object (was `AIFunction`). The `.name` attribute still works the same way, so `classify_issue_tool.name` is still valid inside the `tool_choice` option.
 
 ---
 
@@ -202,7 +207,7 @@ from agent_framework import AgentResponse
 async def run_thain_agent(...) -> Tuple[Dict, AgentResponse]:
 ```
 
-`response.text` and `response.value` work identically.
+`response.text` remains the main way to read the assistant message. `response.value` may be populated by structured response handling, but the GA companion code does not assign to it directly.
 
 ---
 
@@ -238,10 +243,19 @@ serve_devui(entities=[...], host=host, port=port, auto_open=auto_open, tracing_e
 
 **After:**
 ```python
-serve_devui(entities=[...], host=host, port=port, auto_open=auto_open, instrumentation_enabled=tracing_enabled)
+serve_devui(
+    entities=[...],
+    host=host,
+    port=port,
+    auto_open=auto_open,
+    instrumentation_enabled=tracing_enabled,
+    auth_enabled=False,
+)
 ```
 
-**Note on DevUI validation:** DevUI is used in the book as a learning aid. It makes tool calls, traces, and agent reasoning more visible than the command line. The GA codebase does not include DevUI-specific tests. Validate examples using the command line (`python main.py --message "..."`) or the automated test suite (`pytest tests/`).
+The GA companion launcher also passes `auth_enabled=False` for local chapter runs. DevUI 1.0.0b260519 enables local bearer-token protection by default; disabling it here keeps the localhost learning flow aligned with the book. Do not treat this as a production authentication pattern.
+
+**Note on DevUI validation:** DevUI is used in the book as a learning aid. It makes tool calls, traces, and agent reasoning more visible than the command line. Validate examples using the command line (`python main.py --message "..."`) or the automated test suite (`pytest tests/`).
 
 ---
 
@@ -260,11 +274,11 @@ Chapter 2 originally had no test file. The GA version adds `tests/test_chapter2.
 
 ---
 
-## Post-Migration Review Fixes (May 2026)
+## GA Companion Runtime Alignment
 
-The following issues were caught in a post-migration review and fixed:
+The GA companion code also includes the following runtime-alignment changes:
 
-### 1. Credential Not Closed (Bug)
+### 1. Credential Lifecycle
 `run_thain_agent` created `DefaultAzureCredential` but never called `await credential.close()`. Fixed by wrapping the agent run in `try/finally`:
 ```python
 credential = DefaultAzureCredential(...)
@@ -276,11 +290,20 @@ finally:
     await credential.close()
 ```
 
-### 2. Unused `ToolMode` Import
-`from agent_framework import ... ToolMode` was left in imports but never used in the migrated code. Removed.
+### 2. Exact Dependency Pins
+The GA companion uses exact pins in both `requirements.txt` and `constraints.txt` so chapter installs resolve consistently across machines.
 
-### 3. README.md Described Beta Stack
-`README.md` still referenced `Assistants`, `azure-ai-agents`, `ChatAgent`, `AzureAIAgentClient`, and `@ai_function`. Updated to reflect GA APIs: `Agent`, `FoundryChatClient`, `@tool`, and `before_run`.
+### 3. Tool Choice Options
+MAF 1.5 expects required tool selection inside the `tool_choice` option envelope:
+```python
+default_options={
+    "tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}
+}
+```
+Passing `mode` at the top level would forward that value to the underlying model API instead of treating it as an Agent Framework option.
 
-### 4. `FoundryChatClient` Parameter Name
-`FoundryChatClient` uses `project_endpoint=` (same as `AzureAIAgentClient` beta), not `endpoint=`. The Ch2 code was already correct. Note: early Ch6/Ch7 migration drafts used `endpoint=` (incorrect) — that was also fixed in the same review pass.
+### 4. DevUI Streaming Adapter
+DevUI calls the registered entity with `stream=True`. The GA companion adapter returns a streamable Agent Framework response for DevUI while keeping the command-line path as a normal awaited agent run. `AgentResponse.value` is read-only in MAF 1.5, so the parsed payload is returned from the CLI path instead of being written back onto the response object.
+
+### 5. README.md Alignment
+`README.md` was updated to identify the GA code path and reflect the GA APIs: `Agent`, `FoundryChatClient`, `@tool`, and `before_run`.

@@ -635,7 +635,7 @@ async def run_thain_agent(
                 instructions += " You may use the following tools when appropriate: " + ", ".join(action_notes) + "."
     
             chat_tools = tools_list
-            default_options: dict[str, Any] = {"mode": "required", "required_function_name": classify_issue_tool.name}
+            default_options: dict[str, Any] = {"tool_choice": {"mode": "required", "required_function_name": classify_issue_tool.name}}
             if response_mode != "normal":
                 chat_tools = []
                 default_options = {}
@@ -736,7 +736,6 @@ async def run_thain_agent(
         except Exception:
             pass
     
-        response.value = normalized
         return normalized, response
     
     
@@ -875,7 +874,7 @@ def launch_devui(host: str, port: int, auto_open: bool, tracing_enabled: bool) -
 
     config = load_config()
     agent_entity = ThainDevAgent(config)
-    serve_devui(entities=[agent_entity], host=host, port=port, auto_open=auto_open, instrumentation_enabled=tracing_enabled)
+    serve_devui(entities=[agent_entity], host=host, port=port, auto_open=auto_open, instrumentation_enabled=tracing_enabled, auth_enabled=False)
 
 # --- End DevUI helper classes/functions ---
 
